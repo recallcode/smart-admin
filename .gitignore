@@ -1,0 +1,65 @@
+########## IDEs ##########
+
+# IntelliJ
+*.iml
+*.ipr
+.idea
+out/
+/.idea
+.idea_modules/
+
+# Eclipse
+.project
+.settings/
+.metadata
+.classpath
+
+########## OS ##########
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Window
+*.lnk
+Thumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.nfs*
+*.pid
+.Trash-*
+.directory
+.fuse_hidden*
+
+########## JAVA ##########
+
+# Class
+*.class
+
+# Target
+*/target
+target/
+
+# Package
+*.jar
+*.war
+*.ear
+
+# Log
+*.log
+logs/
+*.log.gz
+
+########## NODE ##########
+
+# Builds
+dist
+.next
+.nuxt
+.serverless/
+.vuepress/dist
+node_modules/
