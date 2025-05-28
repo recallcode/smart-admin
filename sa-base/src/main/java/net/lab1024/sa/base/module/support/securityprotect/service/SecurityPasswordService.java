@@ -1,16 +1,15 @@
 package net.lab1024.sa.base.module.support.securityprotect.service;
 
-import jakarta.annotation.Resource;
 import net.lab1024.sa.base.common.domain.RequestUser;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import net.lab1024.sa.base.common.util.SmartStringUtil;
 import net.lab1024.sa.base.module.support.securityprotect.dao.PasswordLogDao;
 import net.lab1024.sa.base.module.support.securityprotect.domain.PasswordLogEntity;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -36,7 +35,6 @@ public class SecurityPasswordService {
     public static final String PASSWORD_FORMAT_MSG = "密码必须为长度8-20位且必须包含大小写字母、数字、特殊符号（如：@#$%^&*()_+-=）等三种字符";
 
     private static final int PASSWORD_LENGTH = 8;
-
 
 
     @Resource
@@ -151,8 +149,8 @@ public class SecurityPasswordService {
     /**
      * 校验密码是否匹配
      */
-    public static Boolean matchesPwd( String password,  String encodedPassword){
-        return ARGON2_PASSWORD_ENCODER.matches( password, encodedPassword);
+    public static Boolean matchesPwd(String password, String encodedPassword) {
+        return ARGON2_PASSWORD_ENCODER.matches(password, encodedPassword);
     }
 
 }

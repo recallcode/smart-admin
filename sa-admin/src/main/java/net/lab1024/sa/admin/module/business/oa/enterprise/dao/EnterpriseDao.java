@@ -23,7 +23,6 @@ import java.util.List;
  * @Copyright  <a href="https://1024lab.net">1024创新实验室</a>
  */
 @Mapper
-@Component
 public interface EnterpriseDao extends BaseMapper<EnterpriseEntity> {
 
     /**
@@ -41,7 +40,7 @@ public interface EnterpriseDao extends BaseMapper<EnterpriseEntity> {
      * 企业分页查询
      *
      */
-    List<EnterpriseVO> queryPage(Page<EnterpriseVO> page, @Param("queryForm") EnterpriseQueryForm queryForm);
+    List<EnterpriseVO> queryPage(Page page, @Param("queryForm") EnterpriseQueryForm queryForm);
 
     /**
      * 查询导出的数据

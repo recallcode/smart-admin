@@ -1,9 +1,9 @@
 package net.lab1024.sa.admin.module.business.goods.domain.form;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * 商品 更新表单
@@ -15,7 +15,6 @@ import lombok.EqualsAndHashCode;
  * @Copyright  <a href="https://1024lab.net">1024创新实验室</a>
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 public class GoodsUpdateForm extends GoodsAddForm {
 
     @Schema(description = "商品id")

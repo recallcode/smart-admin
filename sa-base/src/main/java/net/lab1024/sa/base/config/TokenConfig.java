@@ -1,9 +1,10 @@
 package net.lab1024.sa.base.config;
 
 import cn.dev33.satoken.config.SaTokenConfig;
-import jakarta.annotation.Resource;
 import net.lab1024.sa.base.module.support.securityprotect.service.Level3ProtectConfigService;
 import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.Resource;
 
 /**
  *

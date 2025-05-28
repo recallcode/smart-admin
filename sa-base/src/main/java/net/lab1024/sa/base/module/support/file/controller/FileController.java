@@ -1,11 +1,8 @@
 package net.lab1024.sa.base.module.support.file.controller;
 
-import cn.hutool.extra.servlet.JakartaServletUtil;
-import io.swagger.v3.oas.annotations.Operation;
+import cn.hutool.extra.servlet.ServletUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import net.lab1024.sa.base.common.constant.RequestHeaderConst;
 import net.lab1024.sa.base.common.controller.SupportBaseController;
 import net.lab1024.sa.base.common.domain.RequestUser;
@@ -22,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -57,7 +57,7 @@ public class FileController extends SupportBaseController {
     @Operation(summary = "下载文件流（根据fileKey） @author 胡克")
     @GetMapping("/file/downLoad")
     public void downLoad(@RequestParam String fileKey, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String userAgent = JakartaServletUtil.getHeaderIgnoreCase(request, RequestHeaderConst.USER_AGENT);
+        String userAgent = ServletUtil.getHeaderIgnoreCase(request, RequestHeaderConst.USER_AGENT);
         ResponseDTO<FileDownloadVO> downloadFileResult = fileService.getDownloadFile(fileKey, userAgent);
         if (!downloadFileResult.getOk()) {
             SmartResponseUtil.write(response, downloadFileResult);

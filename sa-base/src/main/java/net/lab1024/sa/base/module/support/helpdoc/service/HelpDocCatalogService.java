@@ -1,6 +1,5 @@
 package net.lab1024.sa.base.module.support.helpdoc.service;
 
-import jakarta.annotation.Resource;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import net.lab1024.sa.base.common.util.SmartBeanUtil;
 import net.lab1024.sa.base.module.support.helpdoc.dao.HelpDocCatalogDao;
@@ -13,6 +12,7 @@ import net.lab1024.sa.base.module.support.helpdoc.domain.vo.HelpDocVO;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 

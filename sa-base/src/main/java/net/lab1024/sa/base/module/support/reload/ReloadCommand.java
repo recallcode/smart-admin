@@ -1,6 +1,5 @@
 package net.lab1024.sa.base.module.support.reload;
 
-import jakarta.annotation.Resource;
 import net.lab1024.sa.base.common.util.SmartBeanUtil;
 import net.lab1024.sa.base.module.support.reload.core.AbstractSmartReloadCommand;
 import net.lab1024.sa.base.module.support.reload.core.domain.SmartReloadItem;
@@ -11,6 +10,7 @@ import net.lab1024.sa.base.module.support.reload.domain.ReloadItemEntity;
 import net.lab1024.sa.base.module.support.reload.domain.ReloadResultEntity;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**

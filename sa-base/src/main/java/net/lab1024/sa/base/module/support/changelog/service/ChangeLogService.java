@@ -1,7 +1,6 @@
 package net.lab1024.sa.base.module.support.changelog.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import jakarta.annotation.Resource;
 import net.lab1024.sa.base.common.domain.PageResult;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import net.lab1024.sa.base.common.util.SmartBeanUtil;
@@ -15,6 +14,7 @@ import net.lab1024.sa.base.module.support.changelog.domain.vo.ChangeLogVO;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -44,7 +44,7 @@ public class ChangeLogService {
      * 添加
      */
     public synchronized ResponseDTO<String> add(ChangeLogAddForm addForm) {
-        ChangeLogEntity existVersion = changeLogDao.selectByVersion(addForm.getVersion());
+        ChangeLogEntity existVersion = changeLogDao.selectByVersion(addForm.getUpdateVersion());
         if (existVersion != null) {
             return ResponseDTO.userErrorParam("此版本已经存在");
         }
@@ -58,7 +58,7 @@ public class ChangeLogService {
      * 更新
      */
     public synchronized ResponseDTO<String> update(ChangeLogUpdateForm updateForm) {
-        ChangeLogEntity existVersion = changeLogDao.selectByVersion(updateForm.getVersion());
+        ChangeLogEntity existVersion = changeLogDao.selectByVersion(updateForm.getUpdateVersion());
         if (existVersion != null && !updateForm.getChangeLogId().equals(existVersion.getChangeLogId())) {
             return ResponseDTO.userErrorParam("此版本已经存在");
         }

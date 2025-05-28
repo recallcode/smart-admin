@@ -1,10 +1,8 @@
 package net.lab1024.sa.admin.module.system.menu.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
 import net.lab1024.sa.admin.constant.AdminSwaggerTagConst;
 import net.lab1024.sa.admin.module.system.menu.domain.form.MenuAddForm;
 import net.lab1024.sa.admin.module.system.menu.domain.form.MenuUpdateForm;
@@ -14,8 +12,11 @@ import net.lab1024.sa.admin.module.system.menu.service.MenuService;
 import net.lab1024.sa.base.common.domain.RequestUrlVO;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import net.lab1024.sa.base.common.util.SmartRequestUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 /**

@@ -1,6 +1,5 @@
 package net.lab1024.sa.admin.module.business.goods.domain.vo;
 
-
 import cn.idev.excel.annotation.ExcelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

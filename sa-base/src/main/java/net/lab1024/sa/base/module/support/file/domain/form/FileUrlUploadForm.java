@@ -1,11 +1,12 @@
 package net.lab1024.sa.base.module.support.file.domain.form;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import net.lab1024.sa.base.common.swagger.SchemaEnum;
 import net.lab1024.sa.base.common.validator.enumeration.CheckEnum;
 import net.lab1024.sa.base.module.support.file.constant.FileFolderTypeEnum;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * url上传文件

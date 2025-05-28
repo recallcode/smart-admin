@@ -1,12 +1,9 @@
 package net.lab1024.sa.admin.module.business.oa.notice.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import cn.hutool.extra.servlet.JakartaServletUtil;
-import io.swagger.v3.oas.annotations.Operation;
+import cn.hutool.extra.servlet.ServletUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
 import net.lab1024.sa.admin.constant.AdminSwaggerTagConst;
 import net.lab1024.sa.admin.module.business.oa.notice.domain.form.*;
 import net.lab1024.sa.admin.module.business.oa.notice.domain.vo.*;
@@ -20,6 +17,9 @@ import net.lab1024.sa.base.module.support.operatelog.annotation.OperateLog;
 import net.lab1024.sa.base.module.support.repeatsubmit.annoation.RepeatSubmit;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -121,7 +121,7 @@ public class NoticeController {
         return noticeEmployeeService.view(
                 SmartRequestUtil.getRequestUserId(),
                 noticeId,
-                JakartaServletUtil.getClientIP(request),
+                ServletUtil.getClientIP(request),
                 request.getHeader("User-Agent")
         );
     }

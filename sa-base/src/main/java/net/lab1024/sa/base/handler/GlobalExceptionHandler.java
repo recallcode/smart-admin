@@ -1,7 +1,6 @@
 package net.lab1024.sa.base.handler;
 
 import cn.dev33.satoken.exception.NotPermissionException;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import net.lab1024.sa.base.common.code.SystemErrorCode;
 import net.lab1024.sa.base.common.code.UserErrorCode;
@@ -21,6 +20,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 

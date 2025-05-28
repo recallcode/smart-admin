@@ -2,7 +2,6 @@ package net.lab1024.sa.admin.module.system.menu.service;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.google.common.collect.Lists;
-import jakarta.annotation.Resource;
 import net.lab1024.sa.admin.module.system.menu.constant.MenuTypeEnum;
 import net.lab1024.sa.admin.module.system.menu.dao.MenuDao;
 import net.lab1024.sa.admin.module.system.menu.domain.entity.MenuEntity;
@@ -15,10 +14,12 @@ import net.lab1024.sa.base.common.code.SystemErrorCode;
 import net.lab1024.sa.base.common.domain.RequestUrlVO;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import net.lab1024.sa.base.common.util.SmartBeanUtil;
+import net.lab1024.sa.base.common.util.SmartStringUtil;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -134,6 +135,10 @@ public class MenuService {
      * @return true 重复 false 未重复
      */
     public <T extends MenuBaseForm> Boolean validateWebPerms(T menuDTO) {
+        if(SmartStringUtil.isEmpty(menuDTO.getWebPerms())){
+            return false;
+        }
+
         MenuEntity menu = menuDao.getByWebPerms(menuDTO.getWebPerms(), Boolean.FALSE);
         if (menuDTO instanceof MenuAddForm) {
             return menu != null;

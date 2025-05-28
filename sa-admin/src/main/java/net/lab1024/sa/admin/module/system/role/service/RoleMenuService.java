@@ -1,7 +1,6 @@
 package net.lab1024.sa.admin.module.system.role.service;
 
 import com.google.common.collect.Lists;
-import jakarta.annotation.Resource;
 import net.lab1024.sa.admin.module.system.menu.dao.MenuDao;
 import net.lab1024.sa.admin.module.system.menu.domain.entity.MenuEntity;
 import net.lab1024.sa.admin.module.system.menu.domain.vo.MenuSimpleTreeVO;
@@ -20,6 +19,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

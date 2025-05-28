@@ -1,10 +1,10 @@
 package net.lab1024.sa.base.common.validator.enumeration;
 
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
 import net.lab1024.sa.base.common.enumeration.BaseEnum;
 
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

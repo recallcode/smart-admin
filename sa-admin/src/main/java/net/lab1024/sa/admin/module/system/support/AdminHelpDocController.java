@@ -1,10 +1,8 @@
 package net.lab1024.sa.admin.module.system.support;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
 import net.lab1024.sa.base.common.controller.SupportBaseController;
 import net.lab1024.sa.base.common.domain.PageResult;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
@@ -17,6 +15,8 @@ import net.lab1024.sa.base.module.support.helpdoc.service.HelpDocService;
 import net.lab1024.sa.base.module.support.repeatsubmit.annoation.RepeatSubmit;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 /**

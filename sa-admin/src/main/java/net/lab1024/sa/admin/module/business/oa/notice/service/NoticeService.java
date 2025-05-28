@@ -2,7 +2,6 @@ package net.lab1024.sa.admin.module.business.oa.notice.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Maps;
-import jakarta.annotation.Resource;
 import net.lab1024.sa.admin.module.business.oa.notice.constant.NoticeVisibleRangeDataTypeEnum;
 import net.lab1024.sa.admin.module.business.oa.notice.dao.NoticeDao;
 import net.lab1024.sa.admin.module.business.oa.notice.domain.entity.NoticeEntity;
@@ -31,6 +30,7 @@ import net.lab1024.sa.base.module.support.datatracer.service.DataTracerService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -230,7 +230,7 @@ public class NoticeService {
                     noticeVisibleRange.setDataName(employeeEntity == null ? StringConst.EMPTY : employeeEntity.getActualName());
                 } else {
                     DepartmentVO departmentVO = departmentService.getDepartmentById(noticeVisibleRange.getDataId());
-                    noticeVisibleRange.setDataName(departmentVO == null ? StringConst.EMPTY : departmentVO.getName());
+                    noticeVisibleRange.setDataName(departmentVO == null ? StringConst.EMPTY : departmentVO.getDepartmentName());
                 }
             }
             updateFormVO.setVisibleRangeList(noticeVisibleRangeList);

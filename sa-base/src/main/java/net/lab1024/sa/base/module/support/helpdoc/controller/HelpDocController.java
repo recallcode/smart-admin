@@ -1,10 +1,7 @@
 package net.lab1024.sa.base.module.support.helpdoc.controller;
 
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
 import net.lab1024.sa.base.common.controller.SupportBaseController;
 import net.lab1024.sa.base.common.domain.PageResult;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
@@ -18,8 +15,12 @@ import net.lab1024.sa.base.module.support.helpdoc.domain.vo.HelpDocViewRecordVO;
 import net.lab1024.sa.base.module.support.helpdoc.service.HelpDocCatalogService;
 import net.lab1024.sa.base.module.support.helpdoc.service.HelpDocUserService;
 import net.lab1024.sa.base.module.support.repeatsubmit.annoation.RepeatSubmit;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 
 /**

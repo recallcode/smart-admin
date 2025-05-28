@@ -3,6 +3,7 @@ package ${packageName};
 #foreach ($importClass in $importPackageList)
 $importClass
 #end
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import net.lab1024.sa.base.common.domain.PageResult;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
-import cn.dev33.satoken.annotation.SaCheckPermission;
-import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
+
+import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * ${basic.description} Controller

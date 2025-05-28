@@ -1,11 +1,11 @@
 package net.lab1024.sa.admin.module.system.employee.domain.form;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import net.lab1024.sa.base.common.domain.PageParam;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**

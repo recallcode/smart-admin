@@ -1,7 +1,6 @@
 package net.lab1024.sa.base.module.support.serialnumber.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import jakarta.annotation.Resource;
 import net.lab1024.sa.base.common.domain.PageResult;
 import net.lab1024.sa.base.common.util.SmartPageUtil;
 import net.lab1024.sa.base.module.support.serialnumber.dao.SerialNumberRecordDao;
@@ -9,6 +8,7 @@ import net.lab1024.sa.base.module.support.serialnumber.domain.SerialNumberRecord
 import net.lab1024.sa.base.module.support.serialnumber.domain.SerialNumberRecordQueryForm;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**

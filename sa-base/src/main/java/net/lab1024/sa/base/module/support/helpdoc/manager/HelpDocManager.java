@@ -1,13 +1,14 @@
 package net.lab1024.sa.base.module.support.helpdoc.manager;
 
-import jakarta.annotation.Resource;
 import net.lab1024.sa.base.module.support.helpdoc.dao.HelpDocDao;
 import net.lab1024.sa.base.module.support.helpdoc.domain.entity.HelpDocEntity;
 import net.lab1024.sa.base.module.support.helpdoc.domain.form.HelpDocRelationForm;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**

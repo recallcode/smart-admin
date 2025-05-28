@@ -1,7 +1,6 @@
 package net.lab1024.sa.base.module.support.heartbeat;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import net.lab1024.sa.base.common.domain.PageResult;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
@@ -10,6 +9,7 @@ import net.lab1024.sa.base.module.support.heartbeat.domain.HeartBeatRecordQueryF
 import net.lab1024.sa.base.module.support.heartbeat.domain.HeartBeatRecordVO;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**

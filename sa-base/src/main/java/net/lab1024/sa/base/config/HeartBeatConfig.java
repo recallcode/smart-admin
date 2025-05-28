@@ -1,11 +1,12 @@
 package net.lab1024.sa.base.config;
 
-import jakarta.annotation.Resource;
 import net.lab1024.sa.base.module.support.heartbeat.core.HeartBeatManager;
 import net.lab1024.sa.base.module.support.heartbeat.core.IHeartBeatRecordHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.Resource;
 
 /**
  * 心跳配置

@@ -1,6 +1,5 @@
 package net.lab1024.sa.admin.module.system.role.service;
 
-import jakarta.annotation.Resource;
 import net.lab1024.sa.admin.module.system.role.dao.RoleDao;
 import net.lab1024.sa.admin.module.system.role.dao.RoleEmployeeDao;
 import net.lab1024.sa.admin.module.system.role.dao.RoleMenuDao;
@@ -14,6 +13,7 @@ import net.lab1024.sa.base.common.util.SmartBeanUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**

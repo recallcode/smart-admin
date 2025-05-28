@@ -1,8 +1,6 @@
 package net.lab1024.sa.base.module.support.serialnumber.service;
 
 import com.google.common.collect.Lists;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.Resource;
 import net.lab1024.sa.base.common.exception.BusinessException;
 import net.lab1024.sa.base.common.util.SmartEnumUtil;
 import net.lab1024.sa.base.module.support.serialnumber.constant.SerialNumberIdEnum;
@@ -11,7 +9,11 @@ import net.lab1024.sa.base.module.support.serialnumber.dao.SerialNumberDao;
 import net.lab1024.sa.base.module.support.serialnumber.dao.SerialNumberRecordDao;
 import net.lab1024.sa.base.module.support.serialnumber.domain.*;
 import org.apache.commons.lang3.RandomUtils;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -92,6 +94,7 @@ public abstract class SerialNumberBaseService implements SerialNumberService {
     public abstract void initLastGenerateData(List<SerialNumberEntity> serialNumberEntityList);
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public String generate(SerialNumberIdEnum serialNumberIdEnum) {
         List<String> generateList = this.generate(serialNumberIdEnum, 1);
         if (generateList == null || generateList.isEmpty()) {
@@ -101,6 +104,7 @@ public abstract class SerialNumberBaseService implements SerialNumberService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public List<String> generate(SerialNumberIdEnum serialNumberIdEnum, int count) {
         SerialNumberInfoBO serialNumberInfoBO = serialNumberMap.get(serialNumberIdEnum.getSerialNumberId());
         if (serialNumberInfoBO == null) {

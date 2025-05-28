@@ -3,8 +3,8 @@ package net.lab1024.sa.base.config;
 import com.alibaba.druid.filter.Filter;
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.support.jakarta.StatViewServlet;
-import com.alibaba.druid.support.jakarta.WebStatFilter;
+import com.alibaba.druid.support.http.StatViewServlet;
+import com.alibaba.druid.support.http.WebStatFilter;
 import com.alibaba.druid.support.spring.stat.DruidStatInterceptor;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
@@ -92,10 +92,10 @@ public class DataSourceConfig {
     @Value("${spring.datasource.druid.method.pointcut}")
     String methodPointcut;
 
-    @jakarta.annotation.Resource
+    @javax.annotation.Resource
     private MybatisPlusInterceptor paginationInterceptor;
 
-    @jakarta.annotation.Resource
+    @javax.annotation.Resource
     private DataScopePlugin dataScopePlugin;
 
     @Bean
@@ -145,7 +145,7 @@ public class DataSourceConfig {
         if (dataScopePlugin != null) {
             pluginsList.add(dataScopePlugin);
         }
-        factoryBean.setPlugins(pluginsList.toArray(new Interceptor[pluginsList.size()]));
+        factoryBean.setPlugins(pluginsList.toArray(new Interceptor[0]));
         // 添加字段自动填充处理
         factoryBean.setGlobalConfig(new GlobalConfig().setBanner(false).setMetaObjectHandler(new MybatisPlusFillHandler()));
 

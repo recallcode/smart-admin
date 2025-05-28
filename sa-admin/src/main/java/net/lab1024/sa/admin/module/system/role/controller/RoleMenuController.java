@@ -1,16 +1,18 @@
 package net.lab1024.sa.admin.module.system.role.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
 import net.lab1024.sa.admin.constant.AdminSwaggerTagConst;
 import net.lab1024.sa.admin.module.system.role.domain.form.RoleMenuUpdateForm;
 import net.lab1024.sa.admin.module.system.role.domain.vo.RoleMenuTreeVO;
 import net.lab1024.sa.admin.module.system.role.service.RoleMenuService;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * 角色的菜单

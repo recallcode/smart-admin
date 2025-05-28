@@ -1,10 +1,10 @@
 package net.lab1024.sa.base.common.util;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
 import org.springframework.beans.BeanUtils;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;

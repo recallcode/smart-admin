@@ -1,7 +1,6 @@
 package net.lab1024.sa.admin.module.system.datascope.service;
 
 import com.google.common.collect.Lists;
-import jakarta.annotation.Resource;
 import net.lab1024.sa.admin.module.system.datascope.constant.DataScopeTypeEnum;
 import net.lab1024.sa.admin.module.system.datascope.constant.DataScopeViewTypeEnum;
 import net.lab1024.sa.admin.module.system.department.service.DepartmentService;
@@ -14,6 +13,7 @@ import net.lab1024.sa.base.common.util.SmartEnumUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +56,7 @@ public class DataScopeViewService {
         if (DataScopeViewTypeEnum.DEPARTMENT_AND_SUB == viewType) {
             return this.getDepartmentAndSubEmployeeIdList(employeeId);
         }
+        // 可以查看所有员工数据
         return Lists.newArrayList();
     }
 

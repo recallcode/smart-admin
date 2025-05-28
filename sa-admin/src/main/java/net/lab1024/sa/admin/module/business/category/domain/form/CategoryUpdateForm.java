@@ -1,9 +1,10 @@
 package net.lab1024.sa.admin.module.business.category.domain.form;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import net.lab1024.sa.admin.module.business.category.domain.dto.CategoryBaseDTO;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * 类目 更新
@@ -15,7 +16,6 @@ import lombok.EqualsAndHashCode;
  * @Copyright  <a href="https://1024lab.net">1024创新实验室</a>
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 public class CategoryUpdateForm extends CategoryAddForm {
 
     @Schema(description = "类目id")

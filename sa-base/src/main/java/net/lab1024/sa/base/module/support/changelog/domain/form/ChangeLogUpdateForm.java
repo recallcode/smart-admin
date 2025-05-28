@@ -1,14 +1,13 @@
 package net.lab1024.sa.base.module.support.changelog.domain.form;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import java.time.LocalDate;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 import net.lab1024.sa.base.common.swagger.SchemaEnum;
 import net.lab1024.sa.base.common.validator.enumeration.CheckEnum;
 import net.lab1024.sa.base.module.support.changelog.constant.ChangeLogTypeEnum;
-
-import java.time.LocalDate;
 
 /**
  * 系统更新日志 更新表单
@@ -27,7 +26,7 @@ public class ChangeLogUpdateForm {
 
     @Schema(description = "版本", required = true)
     @NotBlank(message = "版本 不能为空")
-    private String version;
+    private String updateVersion;
 
     @SchemaEnum(value = ChangeLogTypeEnum.class, desc = "更新类型:[1:特大版本功能更新;2:功能更新;3:bug修复]")
     @CheckEnum(value = ChangeLogTypeEnum.class, message = "更新类型:[1:特大版本功能更新;2:功能更新;3:bug修复] 错误", required = true)

@@ -1,7 +1,6 @@
 package net.lab1024.sa.admin.module.business.category.manager;
 
 import com.google.common.collect.Lists;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import net.lab1024.sa.admin.constant.AdminCacheConst;
 import net.lab1024.sa.admin.module.business.category.dao.CategoryDao;
@@ -14,6 +13,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

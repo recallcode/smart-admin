@@ -1,8 +1,11 @@
 package net.lab1024.sa.admin.module.system.employee.domain.form;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import net.lab1024.sa.base.common.util.SmartVerificationUtil;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 /**
  * 修改登录人头像

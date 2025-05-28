@@ -2,11 +2,9 @@ package net.lab1024.sa.admin.interceptor;
 
 import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.exception.SaTokenException;
-import cn.dev33.satoken.strategy.SaStrategy;
 import cn.dev33.satoken.stp.StpUtil;
-import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import cn.dev33.satoken.strategy.SaAnnotationStrategy;
+import cn.dev33.satoken.strategy.SaStrategy;
 import lombok.extern.slf4j.Slf4j;
 import net.lab1024.sa.admin.module.system.login.domain.RequestEmployee;
 import net.lab1024.sa.admin.module.system.login.service.LoginService;
@@ -22,6 +20,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
 /**
@@ -83,7 +84,7 @@ public class AdminInterceptor implements HandlerInterceptor {
             // --------------- 第三步： 校验 权限 ---------------
 
             SmartRequestUtil.setRequestUser(requestEmployee);
-            if (SaStrategy.instance.isAnnotationPresent.apply(method, SaIgnore.class)) {
+            if (SaAnnotationStrategy.instance.isAnnotationPresent.apply(method, SaIgnore.class)) {
                 return true;
             }
 
@@ -92,7 +93,7 @@ public class AdminInterceptor implements HandlerInterceptor {
                 return true;
             }
 
-            SaStrategy.instance.checkMethodAnnotation.accept(method);
+            SaAnnotationStrategy.instance.checkMethodAnnotation.accept(method);
 
         } catch (SaTokenException e) {
             /*
@@ -125,7 +126,6 @@ public class AdminInterceptor implements HandlerInterceptor {
      * 检测：token 最低活跃频率（单位：秒），如果 token 超过此时间没有访问系统就会被冻结
      */
     private void checkActiveTimeout(RequestEmployee requestEmployee) {
-
         // 用户不在线，也不用检测
         if (requestEmployee == null) {
             return;
@@ -136,12 +136,9 @@ public class AdminInterceptor implements HandlerInterceptor {
     }
 
 
-
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         // 清除上下文
         SmartRequestUtil.remove();
     }
-
-
 }

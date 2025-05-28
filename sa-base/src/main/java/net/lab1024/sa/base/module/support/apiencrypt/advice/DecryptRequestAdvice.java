@@ -1,7 +1,6 @@
 package net.lab1024.sa.base.module.support.apiencrypt.advice;
 
-import com.alibaba.fastjson.JSONObject;
-import jakarta.annotation.Resource;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import net.lab1024.sa.base.common.util.SmartStringUtil;
 import net.lab1024.sa.base.module.support.apiencrypt.annotation.ApiDecrypt;
@@ -15,6 +14,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAdapter;
 
+import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 
@@ -25,7 +25,7 @@ import java.lang.reflect.Type;
  * @Date 2023/10/21 11:41:46
  * @Wechat zhuoda1024
  * @Email lab1024@163.com
- * @Copyright  <a href="https://1024lab.net">1024创新实验室</a>，Since 2012
+ * @Copyright <a href="https://1024lab.net">1024创新实验室</a>，Since 2012
  */
 
 @Slf4j
@@ -37,16 +37,19 @@ public class DecryptRequestAdvice extends RequestBodyAdviceAdapter {
     @Resource
     private ApiEncryptService apiEncryptService;
 
+    @Resource
+    private ObjectMapper objectMapper;
+
     @Override
     public boolean supports(MethodParameter methodParameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
         return methodParameter.hasMethodAnnotation(ApiDecrypt.class) || methodParameter.hasParameterAnnotation(ApiDecrypt.class) || methodParameter.getContainingClass().isAnnotationPresent(ApiDecrypt.class);
     }
 
     @Override
-    public HttpInputMessage beforeBodyRead(HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType)  {
+    public HttpInputMessage beforeBodyRead(HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
         try {
             String bodyStr = IOUtils.toString(inputMessage.getBody(), ENCODING);
-            ApiEncryptForm apiEncryptForm = JSONObject.parseObject(bodyStr, ApiEncryptForm.class);
+            ApiEncryptForm apiEncryptForm = objectMapper.readValue(bodyStr, ApiEncryptForm.class);
             if (SmartStringUtil.isEmpty(apiEncryptForm.getEncryptData())) {
                 return inputMessage;
             }

@@ -4,7 +4,6 @@ import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.util.RandomUtil;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import net.lab1024.sa.base.common.constant.StringConst;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
@@ -16,6 +15,7 @@ import net.lab1024.sa.base.module.support.redis.RedisService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.awt.*;
 import java.util.Objects;
 import java.util.UUID;

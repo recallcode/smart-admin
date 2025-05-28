@@ -31,12 +31,12 @@ public class DepartmentEntity {
     /**
      * 部门名称
      */
-    private String name;
+    private String departmentName;
 
     /**
      * 负责人员工 id
      */
-    @TableField(updateStrategy = FieldStrategy.ALWAYS)
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private Long managerId;
 
     /**

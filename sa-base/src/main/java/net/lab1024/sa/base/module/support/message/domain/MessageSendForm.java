@@ -1,12 +1,13 @@
 package net.lab1024.sa.base.module.support.message.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import net.lab1024.sa.base.common.enumeration.UserTypeEnum;
 import net.lab1024.sa.base.common.swagger.SchemaEnum;
 import net.lab1024.sa.base.module.support.message.constant.MessageTypeEnum;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 /**
  * 消息发送form
  *

@@ -1,7 +1,6 @@
 package net.lab1024.sa.base.module.support.redis;
 
 import com.alibaba.fastjson.JSON;
-import jakarta.annotation.Resource;
 import net.lab1024.sa.base.common.domain.SystemEnvironment;
 import net.lab1024.sa.base.common.enumeration.SystemEnvironmentEnum;
 import net.lab1024.sa.base.common.util.SmartStringUtil;
@@ -11,6 +10,7 @@ import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;

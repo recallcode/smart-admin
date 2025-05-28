@@ -1,9 +1,10 @@
 package net.lab1024.sa.base.module.support.helpdoc.domain.form;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import net.lab1024.sa.base.common.domain.PageParam;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * 查阅记录 查询

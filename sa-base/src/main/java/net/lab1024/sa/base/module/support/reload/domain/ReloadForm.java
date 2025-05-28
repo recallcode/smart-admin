@@ -1,8 +1,9 @@
 package net.lab1024.sa.base.module.support.reload.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * reload (内存热加载、钩子等)

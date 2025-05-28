@@ -1,7 +1,6 @@
 package net.lab1024.sa.base.module.support.securityprotect.service;
 
 import lombok.extern.slf4j.Slf4j;
-import jakarta.annotation.Resource;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import org.apache.tika.config.TikaConfig;
 import org.apache.tika.exception.TikaException;
@@ -13,6 +12,7 @@ import org.apache.tika.mime.MimeTypes;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -73,8 +73,8 @@ public class SecurityFileService {
         // 文件类型安全检测
         if (level3ProtectConfigService.isFileDetectFlag()) {
             String fileType = getFileMimeType(file);
-            if(ALLOWED_MIME_TYPES.stream()
-                    .noneMatch(allowedType -> matchesMimeType(fileType, allowedType))){
+            if (ALLOWED_MIME_TYPES.stream()
+                    .noneMatch(allowedType -> matchesMimeType(fileType, allowedType))) {
                 return ResponseDTO.userErrorParam("禁止上传此文件类型");
             }
         }
@@ -87,13 +87,12 @@ public class SecurityFileService {
      *
      * @param file 要检查的文件
      * @return 文件的 MIME 类型
-     *
      */
     public static String getFileMimeType(MultipartFile file) {
         try {
             TikaConfig tika = new TikaConfig();
             Metadata metadata = new Metadata();
-            metadata.set(TikaCoreProperties.RESOURCE_NAME_KEY,  file.getOriginalFilename());
+            metadata.set(TikaCoreProperties.RESOURCE_NAME_KEY, file.getOriginalFilename());
             TikaInputStream stream = TikaInputStream.get(file.getInputStream());
             MediaType mimetype = tika.getDetector().detect(stream, metadata);
             return mimetype.toString();
@@ -106,8 +105,8 @@ public class SecurityFileService {
     /**
      * 检查文件的 MIME 类型是否与指定的MIME 类型匹配（支持通配符）
      *
-     * @param fileType    文件的 MIME 类型
-     * @param mimetype   MIME 类型（支持通配符）
+     * @param fileType 文件的 MIME 类型
+     * @param mimetype MIME 类型（支持通配符）
      * @return 是否匹配
      */
     private static boolean matchesMimeType(String fileType, String mimetype) {

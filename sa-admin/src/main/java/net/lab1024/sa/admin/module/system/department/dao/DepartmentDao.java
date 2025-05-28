@@ -5,7 +5,6 @@ import net.lab1024.sa.admin.module.system.department.domain.entity.DepartmentEnt
 import net.lab1024.sa.admin.module.system.department.domain.vo.DepartmentVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -18,7 +17,6 @@ import java.util.List;
  * @Email lab1024@163.com
  * @Copyright  <a href="https://1024lab.net">1024创新实验室</a>
  */
-@Component
 @Mapper
 public interface DepartmentDao extends BaseMapper<DepartmentEntity> {
 
@@ -33,4 +31,5 @@ public interface DepartmentDao extends BaseMapper<DepartmentEntity> {
      */
     List<DepartmentVO> listAll();
 
+    DepartmentVO selectDepartmentVO(@Param("departmentId")Long departmentId);
 }

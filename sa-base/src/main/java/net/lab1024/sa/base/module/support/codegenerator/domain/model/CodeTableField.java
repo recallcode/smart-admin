@@ -1,9 +1,10 @@
 package net.lab1024.sa.base.module.support.codegenerator.domain.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * 代码生成 列表表格 模型

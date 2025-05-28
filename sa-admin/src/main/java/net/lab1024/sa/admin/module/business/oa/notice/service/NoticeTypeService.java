@@ -1,7 +1,6 @@
 package net.lab1024.sa.admin.module.business.oa.notice.service;
 
 import cn.hutool.core.util.StrUtil;
-import jakarta.annotation.Resource;
 import net.lab1024.sa.admin.module.business.oa.notice.dao.NoticeTypeDao;
 import net.lab1024.sa.admin.module.business.oa.notice.domain.entity.NoticeTypeEntity;
 import net.lab1024.sa.admin.module.business.oa.notice.domain.vo.NoticeTypeVO;
@@ -10,6 +9,7 @@ import net.lab1024.sa.base.common.util.SmartBeanUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

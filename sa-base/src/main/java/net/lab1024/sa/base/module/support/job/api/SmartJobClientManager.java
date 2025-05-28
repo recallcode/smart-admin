@@ -2,7 +2,6 @@ package net.lab1024.sa.base.module.support.job.api;
 
 import cn.hutool.core.util.IdUtil;
 import com.google.common.collect.Lists;
-import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import net.lab1024.sa.base.module.support.job.api.domain.SmartJobMsg;
 import net.lab1024.sa.base.module.support.job.config.SmartJobAutoConfiguration;
@@ -18,6 +17,7 @@ import org.redisson.api.listener.MessageListener;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PreDestroy;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;

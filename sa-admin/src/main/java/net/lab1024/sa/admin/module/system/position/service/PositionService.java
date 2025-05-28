@@ -1,7 +1,6 @@
 package net.lab1024.sa.admin.module.system.position.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import jakarta.annotation.Resource;
 import net.lab1024.sa.admin.module.system.position.dao.PositionDao;
 import net.lab1024.sa.admin.module.system.position.domain.entity.PositionEntity;
 import net.lab1024.sa.admin.module.system.position.domain.form.PositionAddForm;
@@ -15,6 +14,7 @@ import net.lab1024.sa.base.common.util.SmartPageUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**

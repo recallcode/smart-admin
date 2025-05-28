@@ -1,7 +1,6 @@
 package net.lab1024.sa.base.module.support.job.core;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import net.lab1024.sa.base.module.support.job.config.SmartJobConfig;
 import net.lab1024.sa.base.module.support.job.constant.SmartJobConst;
@@ -11,6 +10,7 @@ import net.lab1024.sa.base.module.support.job.repository.domain.SmartJobEntity;
 import org.redisson.api.RedissonClient;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.PreDestroy;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;

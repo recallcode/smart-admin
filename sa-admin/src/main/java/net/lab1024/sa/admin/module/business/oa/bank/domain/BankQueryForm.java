@@ -6,7 +6,6 @@ import net.lab1024.sa.base.common.domain.PageParam;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDate;
-import lombok.EqualsAndHashCode;
 
 /**
  * OA办公-OA银行信息查询
@@ -18,7 +17,6 @@ import lombok.EqualsAndHashCode;
  * @Copyright <a href="https://1024lab.net">1024创新实验室</a>
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 public class BankQueryForm extends PageParam {
 
     @Schema(description = "企业ID")

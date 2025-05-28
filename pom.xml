@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.1024lab</groupId>
+    <groupId>net.lab1024</groupId>
     <artifactId>sa-parent</artifactId>
     <version>3.0.0</version>
     <packaging>pom</packaging>
@@ -16,17 +16,19 @@
     </modules>
 
     <properties>
-        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <springboot.version>3.3.1</springboot.version>
+        <java.version>1.8</java.version>
+        <springboot.version>2.7.18</springboot.version>
         <spring-mock.version>2.0.8</spring-mock.version>
-        <spring-security-crypto.version>6.4.3</spring-security-crypto.version>
-        <mybatis-plus.version>3.5.7</mybatis-plus.version>
+        <spring-security-crypto.version>5.8.16</spring-security-crypto.version>
+        <mybatis-plus.version>3.5.2</mybatis-plus.version>
+        <mysql-connector-j.version>8.0.33</mysql-connector-j.version>
         <p6spy.version>3.9.1</p6spy.version>
-        <knife4j.version>4.4.0</knife4j.version>
-        <fastjson.version>2.0.52</fastjson.version>
-        <druid.version>1.2.23</druid.version>
+        <springdoc-openapi-ui.version>1.7.0</springdoc-openapi-ui.version>
+        <knife4j.version>4.3.0</knife4j.version>
+        <fastjson.version>2.0.16</fastjson.version>
+        <druid.version>1.2.14</druid.version>
         <google-linkedhashmap.version>1.4.2</google-linkedhashmap.version>
         <google-guava.version>20.0</google-guava.version>
         <user-agent-utils.version>1.21</user-agent-utils.version>
@@ -43,12 +45,10 @@
         <ooxml-schemas.version>1.4</ooxml-schemas.version>
         <aws-java-sdk.version>1.11.842</aws-java-sdk.version>
         <log4j-spring-boot.version>2.23.1</log4j-spring-boot.version>
-        <hutool.version>5.8.29</hutool.version>
+        <hutool.version>5.7.22</hutool.version>
         <velocity-engine-core.version>2.3</velocity-engine-core.version>
-        <jjwt.version>0.9.1</jjwt.version>
-        <jwks-rsa.version>0.9.0</jwks-rsa.version>
         <velocity-tools.version>3.1</velocity-tools.version>
-        <sa-token.version>1.37.0</sa-token.version>
+        <sa-token.version>1.41.0</sa-token.version>
         <ip2region.version>2.7.0</ip2region.version>
         <bcprov.version>1.80</bcprov.version>
         <jackson-datatype-jsr310.version>2.13.4</jackson-datatype-jsr310.version>
@@ -58,7 +58,7 @@
         <snakeyaml.version>2.2</snakeyaml.version>
         <freemarker.version>2.3.33</freemarker.version>
         <jsoup.version>1.18.1</jsoup.version>
-        <tika.version>3.1.0</tika.version>
+        <tika.version>2.9.3</tika.version>
     </properties>
 
     <dependencyManagement>
@@ -75,13 +75,13 @@
             <!--BOM end-->
 
             <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-mock</artifactId>
+                <version>${spring-mock.version}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-logging</artifactId>
+                        <artifactId>commons-logging</artifactId>
+                        <groupId>commons-logging</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -93,14 +93,38 @@
             </dependency>
 
             <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql-connector-j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
                 <groupId>p6spy</groupId>
                 <artifactId>p6spy</artifactId>
                 <version>${p6spy.version}</version>
             </dependency>
 
             <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc-openapi-ui.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
             </dependency>
 
@@ -110,10 +134,9 @@
                 <version>${fastjson.version}</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/com.alibaba/druid-spring-boot-starter -->
             <dependency>
                 <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-3-starter</artifactId>
+                <artifactId>druid</artifactId>
                 <version>${druid.version}</version>
             </dependency>
 
@@ -200,19 +223,6 @@
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jjwt.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.auth0</groupId>
-                <artifactId>jwks-rsa</artifactId>
-                <version>${jwks-rsa.version}</version>
-            </dependency>
-
             <!--velocity begin-->
             <dependency>
                 <groupId>org.apache.velocity</groupId>
@@ -229,7 +239,7 @@
             <!-- Sa-Token 权限认证，在线文档：https://sa-token.cc -->
             <dependency>
                 <groupId>cn.dev33</groupId>
-                <artifactId>sa-token-spring-boot3-starter</artifactId>
+                <artifactId>sa-token-spring-boot-starter</artifactId>
                 <version>${sa-token.version}</version>
             </dependency>
 
@@ -239,6 +249,7 @@
                 <artifactId>sa-token-redis-jackson</artifactId>
                 <version>${sa-token.version}</version>
             </dependency>
+
             <!-- sa-token end -->
 
             <!--ip 地址-->
@@ -308,10 +319,29 @@
                 <version>${smartdb.version}</version>
             </dependency>
 
-            <!-- redisson -->
+            <!-- redisson 排除和依赖data-27 为了springboot2.x 和 java8 -->
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-actuator</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.redisson</groupId>
+                        <artifactId>redisson-spring-data-32</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>objenesis</artifactId>
+                        <groupId>org.objenesis</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-data-27</artifactId>
                 <version>${redisson.version}</version>
             </dependency>
 
@@ -378,11 +408,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.13.0</version>
+                <version>3.2</version>
                 <configuration>
-                    <compilerArgument>-parameters</compilerArgument>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>

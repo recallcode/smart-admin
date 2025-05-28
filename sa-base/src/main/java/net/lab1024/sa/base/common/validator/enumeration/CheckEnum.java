@@ -1,10 +1,10 @@
 package net.lab1024.sa.base.common.validator.enumeration;
 
 
-import jakarta.validation.Constraint;
-import jakarta.validation.Payload;
 import net.lab1024.sa.base.common.enumeration.BaseEnum;
 
+import javax.validation.Constraint;
+import javax.validation.Payload;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

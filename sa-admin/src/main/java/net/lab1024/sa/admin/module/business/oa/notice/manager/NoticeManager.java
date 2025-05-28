@@ -1,6 +1,5 @@
 package net.lab1024.sa.admin.module.business.oa.notice.manager;
 
-import jakarta.annotation.Resource;
 import net.lab1024.sa.admin.module.business.oa.notice.dao.NoticeDao;
 import net.lab1024.sa.admin.module.business.oa.notice.domain.entity.NoticeEntity;
 import net.lab1024.sa.admin.module.business.oa.notice.domain.form.NoticeVisibleRangeForm;
@@ -10,6 +9,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**

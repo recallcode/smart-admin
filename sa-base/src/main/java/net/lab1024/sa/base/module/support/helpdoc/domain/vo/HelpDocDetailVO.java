@@ -2,10 +2,10 @@ package net.lab1024.sa.base.module.support.helpdoc.domain.vo;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import net.lab1024.sa.base.common.json.serializer.FileKeyVoSerializer;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.List;
 

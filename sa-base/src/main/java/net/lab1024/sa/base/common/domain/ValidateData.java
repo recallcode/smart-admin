@@ -1,7 +1,8 @@
 package net.lab1024.sa.base.common.domain;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * 校验数据是否为空的包装类

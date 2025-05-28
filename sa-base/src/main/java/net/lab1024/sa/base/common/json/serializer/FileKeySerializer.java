@@ -3,11 +3,11 @@ package net.lab1024.sa.base.common.json.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import jakarta.annotation.Resource;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import net.lab1024.sa.base.module.support.file.service.FileService;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 
 /**

@@ -1,8 +1,8 @@
 package net.lab1024.sa.admin.module.system.role.domain.form;
-
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * 角色更新修改

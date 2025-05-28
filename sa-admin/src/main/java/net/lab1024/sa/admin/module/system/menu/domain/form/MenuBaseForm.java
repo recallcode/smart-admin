@@ -1,14 +1,15 @@
 package net.lab1024.sa.admin.module.system.menu.domain.form;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import net.lab1024.sa.admin.module.system.menu.constant.MenuPermsTypeEnum;
-import net.lab1024.sa.admin.module.system.menu.constant.MenuTypeEnum;
 import net.lab1024.sa.base.common.swagger.SchemaEnum;
 import net.lab1024.sa.base.common.validator.enumeration.CheckEnum;
 import org.hibernate.validator.constraints.Length;
+import net.lab1024.sa.admin.module.system.menu.constant.MenuTypeEnum;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * 菜单基础

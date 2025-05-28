@@ -2,8 +2,6 @@ package net.lab1024.sa.base.module.support.table;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
 import net.lab1024.sa.base.common.controller.SupportBaseController;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import net.lab1024.sa.base.common.util.SmartRequestUtil;
@@ -11,6 +9,9 @@ import net.lab1024.sa.base.constant.SwaggerTagConst;
 import net.lab1024.sa.base.module.support.repeatsubmit.annoation.RepeatSubmit;
 import net.lab1024.sa.base.module.support.table.domain.TableColumnUpdateForm;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * 表格自定义列（前端用户自定义表格列，并保存到数据库里）

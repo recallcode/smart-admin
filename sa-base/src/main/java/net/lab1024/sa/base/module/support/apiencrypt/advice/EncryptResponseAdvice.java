@@ -1,9 +1,7 @@
 package net.lab1024.sa.base.module.support.apiencrypt.advice;
 
-import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import net.lab1024.sa.base.common.enumeration.DataTypeEnum;
@@ -17,6 +15,8 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import javax.annotation.Resource;
+
 /**
  * 加密
  *
@@ -24,13 +24,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @Date 2023/10/24 09:52:58
  * @Wechat zhuoda1024
  * @Email lab1024@163.com
- * @Copyright  <a href="https://1024lab.net">1024创新实验室</a>，Since 2012
+ * @Copyright <a href="https://1024lab.net">1024创新实验室</a>，Since 2012
  */
 
 
 @Slf4j
 @ControllerAdvice
-public class EncryptResponseAdvice implements ResponseBodyAdvice<ResponseDTO> {
+public class EncryptResponseAdvice implements ResponseBodyAdvice<ResponseDTO<Object>> {
 
     @Resource
     private ApiEncryptService apiEncryptService;
@@ -44,19 +44,18 @@ public class EncryptResponseAdvice implements ResponseBodyAdvice<ResponseDTO> {
     }
 
     @Override
-    public ResponseDTO beforeBodyWrite(ResponseDTO body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        if (body.getData() == null) {
+    public ResponseDTO<Object> beforeBodyWrite(ResponseDTO<Object> body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+        if (body == null || body.getData() == null) {
             return body;
         }
 
-        String encrypt = null;
         try {
-            encrypt = apiEncryptService.encrypt(objectMapper.writeValueAsString(body.getData()));
+            String encrypt = apiEncryptService.encrypt(objectMapper.writeValueAsString(body.getData()));
+            body.setData(encrypt);
+            body.setDataType(DataTypeEnum.ENCRYPT.getValue());
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        body.setData(encrypt);
-        body.setDataType(DataTypeEnum.ENCRYPT.getValue());
         return body;
     }
 }

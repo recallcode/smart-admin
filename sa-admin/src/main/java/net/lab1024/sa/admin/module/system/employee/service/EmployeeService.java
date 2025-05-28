@@ -3,7 +3,6 @@ package net.lab1024.sa.admin.module.system.employee.service;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
-import jakarta.annotation.Resource;
 import net.lab1024.sa.admin.module.system.department.dao.DepartmentDao;
 import net.lab1024.sa.admin.module.system.department.domain.entity.DepartmentEntity;
 import net.lab1024.sa.admin.module.system.department.domain.vo.DepartmentVO;
@@ -32,6 +31,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -239,12 +239,9 @@ public class EmployeeService {
         return ResponseDTO.ok();
     }
 
-
     /**
      * 更新登录人头像
      *
-     * @param employeeUpdateAvatarForm
-     * @return
      */
     public ResponseDTO<String> updateAvatar(EmployeeUpdateAvatarForm employeeUpdateAvatarForm) {
         Long employeeId = employeeUpdateAvatarForm.getEmployeeId();
@@ -384,11 +381,8 @@ public class EmployeeService {
     /**
      * 获取某个部门的员工信息
      */
-    public ResponseDTO<List<EmployeeVO>> getAllEmployeeByDepartmentId(Long departmentId, Boolean disabledFlag) {
-        List<EmployeeEntity> employeeEntityList = employeeDao.selectByDepartmentId(departmentId, disabledFlag);
-        if (disabledFlag != null) {
-            employeeEntityList = employeeEntityList.stream().filter(e -> e.getDisabledFlag().equals(disabledFlag)).collect(Collectors.toList());
-        }
+    public ResponseDTO<List<EmployeeVO>> getAllEmployeeByDepartmentId(Long departmentId) {
+        List<EmployeeEntity> employeeEntityList = employeeDao.selectByDepartmentId(departmentId, Boolean.FALSE);
 
         if (CollectionUtils.isEmpty(employeeEntityList)) {
             return ResponseDTO.ok(Collections.emptyList());
@@ -399,7 +393,7 @@ public class EmployeeService {
         List<EmployeeVO> voList = employeeEntityList.stream().map(e -> {
             EmployeeVO employeeVO = SmartBeanUtil.copy(e, EmployeeVO.class);
             if (department != null) {
-                employeeVO.setDepartmentName(department.getName());
+                employeeVO.setDepartmentName(department.getDepartmentName());
             }
             return employeeVO;
         }).collect(Collectors.toList());
@@ -429,7 +423,7 @@ public class EmployeeService {
      * 根据登录名获取员工
      */
     public EmployeeEntity getByLoginName(String loginName) {
-        return employeeDao.getByLoginName(loginName, null);
+        return employeeDao.getByLoginName(loginName, false);
     }
 
 }

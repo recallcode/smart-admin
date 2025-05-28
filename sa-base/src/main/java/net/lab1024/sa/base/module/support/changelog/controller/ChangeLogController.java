@@ -1,9 +1,7 @@
 package net.lab1024.sa.base.module.support.changelog.controller;
 
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
 import net.lab1024.sa.base.common.controller.SupportBaseController;
 import net.lab1024.sa.base.common.domain.PageResult;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
@@ -12,6 +10,9 @@ import net.lab1024.sa.base.module.support.changelog.domain.form.ChangeLogQueryFo
 import net.lab1024.sa.base.module.support.changelog.domain.vo.ChangeLogVO;
 import net.lab1024.sa.base.module.support.changelog.service.ChangeLogService;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * 系统更新日志 Controller

@@ -1,12 +1,13 @@
 package net.lab1024.sa.admin.config;
 
-import jakarta.annotation.Resource;
 import net.lab1024.sa.admin.interceptor.AdminInterceptor;
 import net.lab1024.sa.base.config.SwaggerConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import javax.annotation.Resource;
 
 /**
  * web相关配置

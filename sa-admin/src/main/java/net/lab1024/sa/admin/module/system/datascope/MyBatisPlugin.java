@@ -2,7 +2,6 @@ package net.lab1024.sa.admin.module.system.datascope;
 
 import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Maps;
-import jakarta.annotation.Resource;
 import net.lab1024.sa.admin.module.system.datascope.domain.DataScopeSqlConfig;
 import net.lab1024.sa.admin.module.system.datascope.service.DataScopeSqlConfigService;
 import net.lab1024.sa.base.common.domain.DataScopePlugin;
@@ -17,6 +16,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;

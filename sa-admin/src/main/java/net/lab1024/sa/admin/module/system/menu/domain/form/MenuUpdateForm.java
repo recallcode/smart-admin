@@ -1,8 +1,9 @@
 package net.lab1024.sa.admin.module.system.menu.domain.form;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * 菜单 更新Form

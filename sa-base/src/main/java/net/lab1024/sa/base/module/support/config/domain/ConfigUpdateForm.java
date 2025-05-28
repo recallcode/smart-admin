@@ -1,8 +1,9 @@
 package net.lab1024.sa.base.module.support.config.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * 配置更新表单

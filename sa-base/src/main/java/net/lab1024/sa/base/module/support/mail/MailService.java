@@ -5,9 +5,6 @@ import cn.hutool.core.lang.UUID;
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import jakarta.annotation.Resource;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import net.lab1024.sa.base.common.domain.SystemEnvironment;
@@ -25,6 +22,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -33,7 +33,7 @@ import java.util.Map;
 
 /**
  *
- * 发生邮件：<br/>
+ * 发送邮件：<br/>
  * 1、支持直接发送 <br/>
  * 2、支持使用邮件模板发送
  *
@@ -47,7 +47,7 @@ import java.util.Map;
 @Component
 public class MailService {
 
-    @Autowired
+    @Resource
     private JavaMailSender javaMailSender;
 
     @Resource

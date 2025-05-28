@@ -3,10 +3,11 @@ package net.lab1024.sa.base.module.support.feedback.domain;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import net.lab1024.sa.base.common.json.deserializer.FileKeyVoDeserializer;
 import net.lab1024.sa.base.common.json.serializer.FileKeyVoSerializer;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * 意见反馈 添加表单

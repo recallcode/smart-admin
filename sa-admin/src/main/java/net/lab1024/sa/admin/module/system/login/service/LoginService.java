@@ -5,10 +5,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.RandomUtil;
-import cn.hutool.extra.servlet.JakartaServletUtil;
-import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
-import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
+import cn.hutool.extra.servlet.ServletUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.lab1024.sa.admin.module.system.department.domain.vo.DepartmentVO;
 import net.lab1024.sa.admin.module.system.department.service.DepartmentService;
@@ -17,6 +14,7 @@ import net.lab1024.sa.admin.module.system.employee.service.EmployeeService;
 import net.lab1024.sa.admin.module.system.login.domain.LoginForm;
 import net.lab1024.sa.admin.module.system.login.domain.LoginResultVO;
 import net.lab1024.sa.admin.module.system.login.domain.RequestEmployee;
+import net.lab1024.sa.admin.module.system.login.manager.LoginManager;
 import net.lab1024.sa.admin.module.system.menu.domain.vo.MenuVO;
 import net.lab1024.sa.admin.module.system.role.domain.vo.RoleVO;
 import net.lab1024.sa.admin.module.system.role.service.RoleEmployeeService;
@@ -48,21 +46,26 @@ import net.lab1024.sa.base.module.support.mail.MailService;
 import net.lab1024.sa.base.module.support.mail.constant.MailTemplateCodeEnum;
 import net.lab1024.sa.base.module.support.redis.RedisService;
 import net.lab1024.sa.base.module.support.securityprotect.domain.LoginFailEntity;
-import net.lab1024.sa.base.module.support.securityprotect.service.*;
+import net.lab1024.sa.base.module.support.securityprotect.service.Level3ProtectConfigService;
+import net.lab1024.sa.base.module.support.securityprotect.service.SecurityLoginService;
+import net.lab1024.sa.base.module.support.securityprotect.service.SecurityPasswordService;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.concurrent.ConcurrentMap;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * 登录
  *
- * @Author 1024创新实验室: 开云
- * @Date 2021-12-01 22:56:34
+ * @Author 1024创新实验室: 卓大
+ * @Date 2025-05-03 22:56:34
  * @Wechat zhuoda1024
  * @Email lab1024@163.com
  * @Copyright <a href="https://1024lab.net">1024创新实验室</a>
@@ -75,22 +78,6 @@ public class LoginService implements StpInterface {
      * 万能密码的 sa token loginId 前缀
      */
     private static final String SUPER_PASSWORD_LOGIN_ID_PREFIX = "S";
-
-    /**
-     * 最大在线缓存人数
-     */
-    private static final long CACHE_MAX_ONLINE_PERSON_COUNT = 1000L;
-
-    /**
-     * 登录信息二级缓存
-     */
-    private final ConcurrentMap<Long, RequestEmployee> loginEmployeeCache = new ConcurrentLinkedHashMap.Builder<Long, RequestEmployee>().maximumWeightedCapacity(CACHE_MAX_ONLINE_PERSON_COUNT).build();
-
-
-    /**
-     * 权限 缓存
-     */
-    private final ConcurrentMap<Long, UserPermission> permissionCache = new ConcurrentLinkedHashMap.Builder<Long, UserPermission>().maximumWeightedCapacity(CACHE_MAX_ONLINE_PERSON_COUNT).build();
 
     @Resource
     private EmployeeService employeeService;
@@ -134,6 +121,9 @@ public class LoginService implements StpInterface {
     @Resource
     private RedisService redisService;
 
+    @Resource
+    private LoginManager loginManager;
+
     /**
      * 获取验证码
      */
@@ -142,7 +132,7 @@ public class LoginService implements StpInterface {
     }
 
     /**
-     * 员工登录
+     * 员工登陆
      *
      * @return 返回用户登录信息
      */
@@ -167,12 +157,12 @@ public class LoginService implements StpInterface {
 
         // 验证账号状态
         if (employeeEntity.getDeletedFlag()) {
-            saveLoginLog(employeeEntity, ip, userAgent, "账号已删除", LoginLogResultEnum.LOGIN_FAIL);
+            saveLoginLog(employeeEntity, ip, userAgent, "账号已删除", LoginLogResultEnum.LOGIN_FAIL, loginDeviceEnum);
             return ResponseDTO.userErrorParam("您的账号已被删除,请联系工作人员！");
         }
 
         if (employeeEntity.getDisabledFlag()) {
-            saveLoginLog(employeeEntity, ip, userAgent, "账号已禁用", LoginLogResultEnum.LOGIN_FAIL);
+            saveLoginLog(employeeEntity, ip, userAgent, "账号已禁用", LoginLogResultEnum.LOGIN_FAIL, loginDeviceEnum);
             return ResponseDTO.userErrorParam("您的账号已被禁用,请联系工作人员！");
         }
 
@@ -206,9 +196,9 @@ public class LoginService implements StpInterface {
             }
 
             // 密码错误
-            if ( !SecurityPasswordService.matchesPwd(requestPassword,employeeEntity.getLoginPwd()) ) {
+            if (!SecurityPasswordService.matchesPwd(requestPassword, employeeEntity.getLoginPwd())) {
                 // 记录登录失败
-                saveLoginLog(employeeEntity, ip, userAgent, "密码错误", LoginLogResultEnum.LOGIN_FAIL);
+                saveLoginLog(employeeEntity, ip, userAgent, "密码错误", LoginLogResultEnum.LOGIN_FAIL, loginDeviceEnum);
                 // 记录等级保护次数
                 String msg = securityLoginService.recordLoginFail(employeeEntity.getEmployeeId(), UserTypeEnum.ADMIN_EMPLOYEE, employeeEntity.getLoginName(), loginFailEntityResponseDTO.getData());
                 return msg == null ? ResponseDTO.userErrorParam("登录名或密码错误！") : ResponseDTO.error(UserErrorCode.LOGIN_FAIL_WILL_LOCK, msg);
@@ -224,10 +214,7 @@ public class LoginService implements StpInterface {
         }
 
         // 获取员工信息
-        RequestEmployee requestEmployee = loadLoginInfo(employeeEntity);
-
-        // 放入缓存
-        loginEmployeeCache.put(employeeEntity.getEmployeeId(), requestEmployee);
+        RequestEmployee requestEmployee = loginManager.loadLoginInfo(employeeEntity);
 
         // 移除登录失败
         securityLoginService.removeLoginFail(employeeEntity.getEmployeeId(), UserTypeEnum.ADMIN_EMPLOYEE);
@@ -237,13 +224,13 @@ public class LoginService implements StpInterface {
         LoginResultVO loginResultVO = getLoginResult(requestEmployee, token);
 
         //保存登录记录
-        saveLoginLog(employeeEntity, ip, userAgent, superPasswordFlag ? "万能密码登录" : loginDeviceEnum.getDesc(), LoginLogResultEnum.LOGIN_SUCCESS);
+        saveLoginLog(employeeEntity, ip, userAgent, superPasswordFlag ? "万能密码登录" : StringConst.EMPTY, LoginLogResultEnum.LOGIN_SUCCESS, loginDeviceEnum);
 
         // 设置 token
         loginResultVO.setToken(token);
 
-        // 清除权限缓存
-        permissionCache.remove(employeeEntity.getEmployeeId());
+        // 更新用户权限
+        loginManager.loadUserPermission(employeeEntity.getEmployeeId());
 
         return ResponseDTO.ok(loginResultVO);
     }
@@ -261,10 +248,6 @@ public class LoginService implements StpInterface {
         List<RoleVO> roleList = roleEmployeeService.getRoleIdList(requestEmployee.getEmployeeId());
         List<MenuVO> menuAndPointsList = roleMenuService.getMenuList(roleList.stream().map(RoleVO::getRoleId).collect(Collectors.toList()), requestEmployee.getAdministratorFlag());
         loginResultVO.setMenuList(menuAndPointsList);
-
-        // 更新下后端权限缓存
-        UserPermission userPermission = getUserPermission(requestEmployee.getUserId());
-        permissionCache.put(requestEmployee.getUserId(), userPermission);
 
         // 上次登录信息
         LoginLogVO loginLogVO = loginLogService.queryLastByUserId(requestEmployee.getEmployeeId(), UserTypeEnum.ADMIN_EMPLOYEE, LoginLogResultEnum.LOGIN_SUCCESS);
@@ -290,33 +273,7 @@ public class LoginService implements StpInterface {
 
 
     /**
-     * 获取登录的用户信息
-     */
-    private RequestEmployee loadLoginInfo(EmployeeEntity employeeEntity) {
-
-        // 基础信息
-        RequestEmployee requestEmployee = SmartBeanUtil.copy(employeeEntity, RequestEmployee.class);
-        requestEmployee.setUserType(UserTypeEnum.ADMIN_EMPLOYEE);
-
-        // 部门信息
-        DepartmentVO department = departmentService.getDepartmentById(employeeEntity.getDepartmentId());
-        requestEmployee.setDepartmentName(null == department ? StringConst.EMPTY : department.getName());
-
-        // 头像信息
-        String avatar = employeeEntity.getAvatar();
-        if (StringUtils.isNotBlank(avatar)) {
-            ResponseDTO<String> getFileUrl = fileStorageService.getFileUrl(avatar);
-            if (BooleanUtils.isTrue(getFileUrl.getOk())) {
-                requestEmployee.setAvatar(getFileUrl.getData());
-            }
-        }
-
-        return requestEmployee;
-    }
-
-
-    /**
-     * 根据登录token 获取员请求工信息
+     * 根据登陆token 获取员请求工信息
      */
     public RequestEmployee getLoginEmployee(String loginId, HttpServletRequest request) {
         if (loginId == null) {
@@ -328,21 +285,11 @@ public class LoginService implements StpInterface {
             return null;
         }
 
-        RequestEmployee requestEmployee = loginEmployeeCache.get(requestEmployeeId);
-        if (requestEmployee == null) {
-            // 员工基本信息
-            EmployeeEntity employeeEntity = employeeService.getById(requestEmployeeId);
-            if (employeeEntity == null) {
-                return null;
-            }
-
-            requestEmployee = this.loadLoginInfo(employeeEntity);
-            loginEmployeeCache.put(requestEmployeeId, requestEmployee);
-        }
+        RequestEmployee requestEmployee = loginManager.getRequestEmployee(requestEmployeeId);
 
         // 更新请求ip和user agent
-        requestEmployee.setUserAgent(JakartaServletUtil.getHeaderIgnoreCase(request, RequestHeaderConst.USER_AGENT));
-        requestEmployee.setIp(JakartaServletUtil.getClientIP(request));
+        requestEmployee.setUserAgent(ServletUtil.getHeaderIgnoreCase(request, RequestHeaderConst.USER_AGENT));
+        requestEmployee.setIp(ServletUtil.getClientIP(request));
 
         return requestEmployee;
     }
@@ -382,7 +329,7 @@ public class LoginService implements StpInterface {
         StpUtil.logout();
 
         // 清空登录信息缓存
-        loginEmployeeCache.remove(requestUser.getUserId());
+        loginManager.clear();
 
         //保存登出日志
         LoginLogEntity loginEntity = LoginLogEntity.builder()
@@ -401,17 +348,9 @@ public class LoginService implements StpInterface {
     }
 
     /**
-     * 清除员工登录缓存
-     */
-    public void clearLoginEmployeeCache(Long employeeId) {
-        // 清空登录信息缓存
-        loginEmployeeCache.remove(employeeId);
-    }
-
-    /**
      * 保存登录日志
      */
-    private void saveLoginLog(EmployeeEntity employeeEntity, String ip, String userAgent, String remark, LoginLogResultEnum result) {
+    private void saveLoginLog(EmployeeEntity employeeEntity, String ip, String userAgent, String remark, LoginLogResultEnum result, LoginDeviceEnum loginDeviceEnum) {
         LoginLogEntity loginEntity = LoginLogEntity.builder()
                 .userId(employeeEntity.getEmployeeId())
                 .userType(UserTypeEnum.ADMIN_EMPLOYEE.getValue())
@@ -420,6 +359,7 @@ public class LoginService implements StpInterface {
                 .loginIp(ip)
                 .loginIpRegion(SmartIpUtil.getRegion(ip))
                 .remark(remark)
+                .loginDevice(loginDeviceEnum.getDesc())
                 .loginResult(result.getValue())
                 .createTime(LocalDateTime.now())
                 .build();
@@ -434,12 +374,7 @@ public class LoginService implements StpInterface {
             return Collections.emptyList();
         }
 
-        UserPermission userPermission = permissionCache.get(employeeId);
-        if (userPermission == null) {
-            userPermission = getUserPermission(employeeId);
-            permissionCache.put(employeeId, userPermission);
-        }
-
+        UserPermission userPermission = loginManager.getUserPermission(employeeId);
         return userPermission.getPermissionList();
     }
 
@@ -450,51 +385,10 @@ public class LoginService implements StpInterface {
             return Collections.emptyList();
         }
 
-        UserPermission userPermission = permissionCache.get(employeeId);
-        if (userPermission == null) {
-            userPermission = getUserPermission(employeeId);
-            permissionCache.put(employeeId, userPermission);
-        }
+        UserPermission userPermission = loginManager.getUserPermission(employeeId);
         return userPermission.getRoleList();
     }
 
-    /**
-     * 获取用户的权限（包含 角色列表、权限列表）
-     */
-    private UserPermission getUserPermission(Long employeeId) {
-
-        UserPermission userPermission = new UserPermission();
-        userPermission.setPermissionList(new ArrayList<>());
-        userPermission.setRoleList(new ArrayList<>());
-
-        // 角色列表
-        List<RoleVO> roleList = roleEmployeeService.getRoleIdList(employeeId);
-        userPermission.getRoleList().addAll(roleList.stream().map(RoleVO::getRoleCode).collect(Collectors.toSet()));
-
-        // 前端菜单和功能点清单
-        EmployeeEntity employeeEntity = employeeService.getById(employeeId);
-
-        List<MenuVO> menuAndPointsList = roleMenuService.getMenuList(roleList.stream().map(RoleVO::getRoleId).collect(Collectors.toList()), employeeEntity.getAdministratorFlag());
-
-        // 权限列表
-        HashSet<String> permissionSet = new HashSet<>();
-        for (MenuVO menu : menuAndPointsList) {
-            if (menu.getPermsType() == null) {
-                continue;
-            }
-
-            String perms = menu.getApiPerms();
-            if (StringUtils.isEmpty(perms)) {
-                continue;
-            }
-            //接口权限
-            String[] split = perms.split(",");
-            permissionSet.addAll(Arrays.asList(split));
-        }
-        userPermission.getPermissionList().addAll(permissionSet);
-
-        return userPermission;
-    }
 
     /**
      * 发送 邮箱 验证码
@@ -588,5 +482,9 @@ public class LoginService implements StpInterface {
     private void deleteEmailCode(Long employeeId) {
         String redisVerificationCodeKey = redisService.generateRedisKey(RedisKeyConst.Support.LOGIN_VERIFICATION_CODE, UserTypeEnum.ADMIN_EMPLOYEE.getValue() + RedisKeyConst.SEPARATOR + employeeId);
         redisService.delete(redisVerificationCodeKey);
+    }
+
+    public void clearLoginEmployeeCache(Long employeeId) {
+        loginManager.clear();
     }
 }

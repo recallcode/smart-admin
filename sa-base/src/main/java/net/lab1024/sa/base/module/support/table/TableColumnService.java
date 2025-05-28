@@ -1,13 +1,14 @@
 package net.lab1024.sa.base.module.support.table;
 
 import com.alibaba.fastjson.JSONArray;
-import jakarta.annotation.Resource;
 import net.lab1024.sa.base.common.domain.RequestUser;
 import net.lab1024.sa.base.common.domain.ResponseDTO;
 import net.lab1024.sa.base.module.support.table.domain.TableColumnEntity;
 import net.lab1024.sa.base.module.support.table.domain.TableColumnUpdateForm;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * 表格自定义列（前端用户自定义表格列，并保存到数据库里）

@@ -1,12 +1,13 @@
 package net.lab1024.sa.base.module.support.codegenerator.domain.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import net.lab1024.sa.base.common.swagger.SchemaEnum;
 import net.lab1024.sa.base.common.validator.enumeration.CheckEnum;
 import net.lab1024.sa.base.module.support.codegenerator.constant.CodeDeleteEnum;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * 代码生成 删除 模型

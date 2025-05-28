@@ -3,7 +3,6 @@ package net.lab1024.sa.admin.module.business.category.service;
 import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import net.lab1024.sa.admin.module.business.category.domain.dto.CategorySimpleDTO;
 import net.lab1024.sa.admin.module.business.category.domain.entity.CategoryEntity;
@@ -12,6 +11,7 @@ import net.lab1024.sa.base.common.constant.StringConst;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;

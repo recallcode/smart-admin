@@ -2,8 +2,6 @@ package net.lab1024.sa.base.module.support.message.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
 import net.lab1024.sa.base.common.controller.SupportBaseController;
 import net.lab1024.sa.base.common.domain.PageResult;
 import net.lab1024.sa.base.common.domain.RequestUser;
@@ -14,6 +12,9 @@ import net.lab1024.sa.base.module.support.message.domain.MessageQueryForm;
 import net.lab1024.sa.base.module.support.message.domain.MessageVO;
 import net.lab1024.sa.base.module.support.message.service.MessageService;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * 消息
